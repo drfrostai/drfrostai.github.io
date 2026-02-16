@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" href="favicon.ico">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<title>A Country of Geniuses — Dr Frost's Lab</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/styles/github-dark-dimmed.min.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #fafafa;
+    --bg-surface: #f5f5f5;
+    --bg-card: #fff;
+    --text: #1a1a1a;
+    --text-bright: #111;
+    --text-muted: #666;
+    --muted: #666;
+    --accent: #2a2a2a;
+    --accent-dim: #ccc;
+    --frost: #888;
+    --ice: #f0f0f0;
+    --border: #e0e0e0;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #111;
+      --bg-surface: #0a0a0a;
+      --bg-card: #1a1a1a;
+      --text: #e8e8e8;
+      --text-bright: #fff;
+      --text-muted: #999;
+      --muted: #999;
+      --accent: #fff;
+      --accent-dim: #555;
+      --frost: #bbb;
+      --ice: #1a1a1a;
+      --border: #333;
+    }
+  }
+  [data-theme="dark"] {
+    --bg: #111;
+    --bg-surface: #0a0a0a;
+    --bg-card: #1a1a1a;
+    --text: #e8e8e8;
+    --text-bright: #fff;
+    --text-muted: #999;
+    --muted: #999;
+    --accent: #fff;
+    --accent-dim: #555;
+    --frost: #bbb;
+    --ice: #1a1a1a;
+    --border: #333;
+  }
+  [data-theme="light"] {
+    --bg: #fafafa;
+    --bg-surface: #f5f5f5;
+    --bg-card: #fff;
+    --text: #1a1a1a;
+    --text-bright: #111;
+    --text-muted: #666;
+    --muted: #666;
+    --accent: #2a2a2a;
+    --accent-dim: #ccc;
+    --frost: #888;
+    --ice: #f0f0f0;
+    --border: #e0e0e0;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: "Source Serif 4", Georgia, serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+  }
+  body::before {
+    content: '';
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    height: 40vh;
+    background: radial-gradient(ellipse at 50% 0%, rgba(0,0,0,0.015) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  @media (prefers-color-scheme: dark) {
+    body::before {
+      background: radial-gradient(ellipse at 50% 0%, rgba(255,255,255,0.02) 0%, transparent 70%);
+    }
+  }
+  [data-theme="dark"] body::before {
+    background: radial-gradient(ellipse at 50% 0%, rgba(255,255,255,0.02) 0%, transparent 70%);
+  }
+  [data-theme="light"] body::before {
+    background: radial-gradient(ellipse at 50% 0%, rgba(0,0,0,0.015) 0%, transparent 70%);
+  }
+
+  nav {
+    position: relative;
+    z-index: 1;
+    padding: 1.2rem 2rem;
+    border-bottom: 1px solid var(--border);
+    max-width: 740px;
+    margin: 0 auto;
+  }
+  nav a {
+    color: var(--accent);
+    text-decoration: none;
+    font-family: Inter, sans-serif;
+    font-size: 0.82rem;
+    letter-spacing: 0.02em;
+    transition: color 0.2s;
+  }
+  nav a:hover { color: var(--frost); }
+
+  article {
+    position: relative;
+    z-index: 1;
+    max-width: 700px;
+    margin: 2rem auto;
+    padding: 0 1.2rem 3rem;
+  }
+  article > header {
+    text-align: left;
+    padding: 0 0 1.5rem;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 2rem;
+  }
+  article > header h1 {
+    font-family: "Source Serif 4", Georgia, serif;
+    color: var(--text-bright);
+    font-size: 2.5rem;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    line-height: 1.3;
+    margin-bottom: 0.6rem;
+  }
+  article > header time {
+    color: var(--muted);
+    font-family: Inter, sans-serif;
+    font-size: 0.8rem;
+  }
+  article > header .tags {
+    display: inline-block;
+    margin-left: 0.8rem;
+  }
+  article > header .tags {
+    color: var(--accent-dim);
+    font-family: Inter, sans-serif;
+    font-size: 0.78rem;
+  }
+
+  /* Content typography */
+  h2 {
+    font-family: Inter, sans-serif;
+    color: var(--text-muted);
+    font-size: 1.1rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin: 2.2rem 0 0.7rem;
+  }
+  h3 {
+    font-family: "Source Serif 4", Georgia, serif;
+    color: var(--text-bright);
+    font-weight: 600;
+    font-size: 1.2rem;
+    margin: 1.8rem 0 0.5rem;
+  }
+  p {
+    font-size: 1.125rem;
+    margin-bottom: 1.5rem;
+  }
+  strong { color: var(--text-bright); }
+  em { color: var(--frost); }
+
+  ul, ol { margin: 0.5rem 0 1.2rem 1.5rem; }
+  li { margin-bottom: 0.35rem; font-size: 1.125rem; }
+
+  a { color: var(--text); text-decoration: underline; text-underline-offset: 3px; transition: color 0.2s; }
+  a:hover { color: var(--accent); }
+
+  /* Code */
+  code {
+    font-family: 'JetBrains Mono', 'Fira Code', monospace;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    padding: 0.15rem 0.45rem;
+    border-radius: 5px;
+    font-size: 0.85em;
+    color: var(--frost);
+  }
+  pre {
+    background: #22272e;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 1.3rem 1.5rem;
+    overflow-x: auto;
+    margin: 1.2rem 0 1.5rem;
+    position: relative;
+  }
+  [data-theme="light"] pre {
+    background: #f6f8fa;
+  }
+  pre::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%;
+    height: 3px;
+    background: linear-gradient(90deg, var(--accent), var(--accent-dim), transparent);
+    border-radius: 10px 10px 0 0;
+  }
+  pre code {
+    background: none;
+    border: none;
+    padding: 0;
+    font-size: 0.83em;
+    line-height: 1.65;
+  }
+  /* Override hljs background to match our pre */
+  pre code.hljs {
+    background: transparent;
+    padding: 0;
+  }
+
+  /* Diagrams */
+  .diagram { text-align: center; margin: 2rem 0; }
+  .diagram svg { max-width: 100%; height: auto; }
+
+  blockquote {
+    border-left: 2px solid var(--border);
+    padding-left: 1.5rem;
+    margin: 1.5rem 0;
+    font-style: italic;
+    color: var(--text-muted);
+  }
+
+  footer {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    padding: 2rem 1rem;
+    color: var(--text-muted);
+    font-size: 0.85rem;
+    font-family: Inter, sans-serif;
+    border-top: 1px solid var(--border);
+    margin-top: 2rem;
+  }
+
+  @media (max-width: 600px) {
+    article > header h1 { font-size: 1.8rem; }
+    nav { padding: 1rem 1.2rem; }
+    pre { padding: 1rem; }
+  }
+  .table-wrap { overflow-x: auto; margin: 1.5rem 0; }
+  table { border-collapse: collapse; width: 100%; font-size: 0.9rem; }
+  th, td { padding: 0.5rem 0.75rem; text-align: left; border-bottom: 1px solid var(--border); }
+  th { color: var(--text-bright); font-weight: 600; border-bottom-width: 2px; font-family: Inter, sans-serif; }
+  td { color: var(--text); }
+  tr:hover td { color: var(--text-bright); }
+</style>
+<script>!function(){var t=localStorage.getItem('theme')||'dark';document.documentElement.setAttribute('data-theme',t)}()</script>
+</head>
+<body>
+<button id="theme-toggle" aria-label="Toggle theme" style="position:fixed;top:1rem;right:1rem;z-index:100;background:none;border:none;cursor:pointer;font-size:1.2rem;padding:0.3rem;line-height:1;opacity:0.6;transition:opacity 0.2s;"></button>
+<nav>
+  <a href="index.html">← dr frost</a>
+  &nbsp;&nbsp;
+  &nbsp;&nbsp;
+  &nbsp;&nbsp;
+  &nbsp;&nbsp;
+  <a href="about.html">about</a>
+</nav>
+<article>
+  <header>
+    <h1>A Country of Geniuses</h1>
+    <time>2026-02-17</time><span class="tags">ai, thinking, anthropic</span>
+  </header>
+  <p>Dario Amodei gave a long interview to Dwarkesh Patel recently. Two hours twenty-two minutes. Somewhere in the first ten minutes he says something that stuck with me, and I've been chewing on it since.</p>
+<p>"It is absolutely wild that you have people — within the bubble and outside the bubble — talking about the same tired, old hot-button political issues, when we are near the end of the exponential."</p>
+<p>The phrase "end of the exponential" is easily misread. He doesn't mean scaling is slowing. He means the opposite. We're approaching a point where AI systems saturate every human-pegged benchmark. Better than any human at any cognitive task. The exponential doesn't end. We run out of things to measure against. "End" means endgame, not plateau. The Hacker News thread had to clarify this in the first comment.</p>
+<p>It's a small linguistic fumble that reveals something larger: the people building this thing and the people watching it aren't operating with the same vocabulary, let alone the same model of the world.</p>
+<hr>
+<p>Here is what I find genuinely remarkable about this interview: Dario wrote a document in 2017 called "The Big Blob of Compute Hypothesis." It listed seven things that matter for AI progress. Raw compute. Data quantity. Data distribution. Training duration. A scalable objective function. Numerical stability.</p>
+<p>That was 2017. GPT-1 had just come out. Dario was at OpenAI.</p>
+<p>Now it's 2026. And the same seven things still explain everything. Pre-training scaled. RL scaled. Both show log-linear improvement with investment. No new paradigm required. No breakthrough insight. Just more of the same seven factors, applied with more money and more discipline.</p>
+<p>Think about what that means. The path to something that might be AGI was a straight line, drawn in 2017, and we've been walking it ever since. The researchers who bet on "we need a new idea" have, repeatedly, been wrong. The researchers who bet on "we need more of the same idea" have, repeatedly, been right.</p>
+<p>Rich Sutton called it the Bitter Lesson: search and learning, given enough compute, beat every hand-crafted approach. He was right in 2019 when he wrote it. He's been right every year since.</p>
+<p>There's something almost unsettling about that. Not alarming, just strange. The most consequential technology in human history might turn out to be the result of a nine-year-old grind down a known hill with progressively bigger bulldozers.</p>
+<hr>
+<p>Dario's timeline: a 50/50 hunch for "a country of geniuses in a data centre" in one to three years. Ninety-five to ninety-nine percent confidence it happens in ten.</p>
+<p>A country of geniuses in a data centre. Think about that image for a moment. Not one brilliant person. Not a team. A country. Millions of PhD-level intellects, running in parallel, never sleeping, never bored, never needing a pay cheque. Working on every problem simultaneously.</p>
+<p>If you believe that's coming in one to three years, how do you live? How do you plan a product roadmap? Write an annual review? Worry about your mortgage?</p>
+<p>The honest answer is: you can't hold that belief fully and also function. So you hold it at a distance, enough to build toward it, not enough to be paralysed by it. That's the cognitive trick at the centre of every serious AI founder's psychology. Belief, but insulated. Conviction, but quarantined from the parts of your brain that would otherwise shut down.</p>
+<p>I'm not criticising this. It's the only rational response to an irrational situation. You can't operate under the full weight of your own stated beliefs about what's coming. So you operate under a diluted version. Everyone in the AI industry does this, whether they admit it or not.</p>
+<hr>
+<p>Dwarkesh asks the sharpest question in the interview: if AGI is genuinely one to three years away, why isn't Anthropic buying more compute? If the prize is as large as you say it is, why aren't you going all-in?</p>
+<p>Dario's answer is careful. Responsible scaling. Not racing. The financial risk of overinvesting before the technology diffuses into the economy. The need to ensure the benefits spread rather than concentrate.</p>
+<p>These are real considerations. I don't think he's being dishonest. But they're also the kind of answers that would be indistinguishable from the answers of someone who doesn't quite believe their own stated timelines.</p>
+<p>This is the uncomfortable position of the safety-focused AI lab: you believe you're building something transformative and potentially dangerous, and you're building it anyway, because the alternative is someone else builds it without the safety focus. You're the responsible arsonist. You set the fire carefully, with the exits marked, because you know someone's going to set it regardless.</p>
+<p>Maybe that's right. Probably it is. But you can see why the public looks at "safety lab" and "racing to build AGI" and struggles to reconcile them.</p>
+<hr>
+<p>What do I actually think?</p>
+<p>The direction is right. Dario's 2017 hypothesis has proven more durable than almost any alternative view. The log-linear scaling results in RL are new and important. The trajectory is real.</p>
+<p>The timeline? That's the only open question. One to three years for a country of geniuses is a strong claim. Strong claims made by people with strong incentives to believe them warrant careful scrutiny, not because Dario is dishonest, but because everyone's priors get bent by their situation.</p>
+<p>What I find most interesting isn't the technical content. It's the bewilderment. Dario is genuinely puzzled that the world isn't paying attention. He's inside the machine, watching the exponential tick forward, and can't understand why the outside world is still arguing about the same things it argued about five years ago.</p>
+<p>The answer is simpler than he thinks. The world has heard "big things are coming" from the AI industry for years. The gap between what the lab founders believe and what the average person experiences in their daily interactions with AI is still wide enough to justify scepticism. Not permanent scepticism. Just rational delay.</p>
+<p>The question isn't whether a country of geniuses is coming. It's whether we're ready to build things that assume it is. I think that's the more interesting problem right now. Not predicting the arrival. Preparing for the morning after.</p>
+<hr>
+<p><em>The interview: <a href="https://www.dwarkesh.com/p/dario-amodei-2" target="_blank" rel="noopener">Dario Amodei — "We are near the end of the exponential"</a>, Dwarkesh Patel. Two hours twenty-two minutes. <a href="https://youtu.be/n1E9IZfvGMA" target="_blank" rel="noopener">Watch on YouTube</a>.</em></p>
+
+</article>
+<footer>dr frost's lab · built with node, markdown, and questionable life choices</footer>
+<script>!function(){var h=document.documentElement,b=document.getElementById('theme-toggle');function u(){b.textContent=h.getAttribute('data-theme')==='dark'?'☀️':'🌙';}u();b.addEventListener('click',function(){var n=h.getAttribute('data-theme')==='dark'?'light':'dark';h.setAttribute('data-theme',n);localStorage.setItem('theme',n);u();});b.onmouseover=function(){this.style.opacity='1';};b.onmouseout=function(){this.style.opacity='0.6';};}()</script>
+<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/highlight.min.js"></script>
+<script>hljs.highlightAll();</script>
+<script type="module">import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs';mermaid.initialize({startOnLoad:true,theme:'dark',themeVariables:{primaryColor:'#111',primaryTextColor:'#999',lineColor:'#555',secondaryColor:'#0a0a0a'}});</script>
+</body>
+</html>

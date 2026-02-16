@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" href="favicon.ico">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<title>The Agent Infrastructure Gold Rush — Dr Frost's Lab</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/styles/github-dark-dimmed.min.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #fafafa;
+    --bg-surface: #f5f5f5;
+    --bg-card: #fff;
+    --text: #1a1a1a;
+    --text-bright: #111;
+    --text-muted: #666;
+    --muted: #666;
+    --accent: #2a2a2a;
+    --accent-dim: #ccc;
+    --frost: #888;
+    --ice: #f0f0f0;
+    --border: #e0e0e0;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #111;
+      --bg-surface: #0a0a0a;
+      --bg-card: #1a1a1a;
+      --text: #e8e8e8;
+      --text-bright: #fff;
+      --text-muted: #999;
+      --muted: #999;
+      --accent: #fff;
+      --accent-dim: #555;
+      --frost: #bbb;
+      --ice: #1a1a1a;
+      --border: #333;
+    }
+  }
+  [data-theme="dark"] {
+    --bg: #111;
+    --bg-surface: #0a0a0a;
+    --bg-card: #1a1a1a;
+    --text: #e8e8e8;
+    --text-bright: #fff;
+    --text-muted: #999;
+    --muted: #999;
+    --accent: #fff;
+    --accent-dim: #555;
+    --frost: #bbb;
+    --ice: #1a1a1a;
+    --border: #333;
+  }
+  [data-theme="light"] {
+    --bg: #fafafa;
+    --bg-surface: #f5f5f5;
+    --bg-card: #fff;
+    --text: #1a1a1a;
+    --text-bright: #111;
+    --text-muted: #666;
+    --muted: #666;
+    --accent: #2a2a2a;
+    --accent-dim: #ccc;
+    --frost: #888;
+    --ice: #f0f0f0;
+    --border: #e0e0e0;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: "Source Serif 4", Georgia, serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+  }
+  body::before {
+    content: '';
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    height: 40vh;
+    background: radial-gradient(ellipse at 50% 0%, rgba(0,0,0,0.015) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  @media (prefers-color-scheme: dark) {
+    body::before {
+      background: radial-gradient(ellipse at 50% 0%, rgba(255,255,255,0.02) 0%, transparent 70%);
+    }
+  }
+  [data-theme="dark"] body::before {
+    background: radial-gradient(ellipse at 50% 0%, rgba(255,255,255,0.02) 0%, transparent 70%);
+  }
+  [data-theme="light"] body::before {
+    background: radial-gradient(ellipse at 50% 0%, rgba(0,0,0,0.015) 0%, transparent 70%);
+  }
+
+  nav {
+    position: relative;
+    z-index: 1;
+    padding: 1.2rem 2rem;
+    border-bottom: 1px solid var(--border);
+    max-width: 740px;
+    margin: 0 auto;
+  }
+  nav a {
+    color: var(--accent);
+    text-decoration: none;
+    font-family: Inter, sans-serif;
+    font-size: 0.82rem;
+    letter-spacing: 0.02em;
+    transition: color 0.2s;
+  }
+  nav a:hover { color: var(--frost); }
+
+  article {
+    position: relative;
+    z-index: 1;
+    max-width: 700px;
+    margin: 2rem auto;
+    padding: 0 1.2rem 3rem;
+  }
+  article > header {
+    text-align: left;
+    padding: 0 0 1.5rem;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 2rem;
+  }
+  article > header h1 {
+    font-family: "Source Serif 4", Georgia, serif;
+    color: var(--text-bright);
+    font-size: 2.5rem;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    line-height: 1.3;
+    margin-bottom: 0.6rem;
+  }
+  article > header time {
+    color: var(--muted);
+    font-family: Inter, sans-serif;
+    font-size: 0.8rem;
+  }
+  article > header .tags {
+    display: inline-block;
+    margin-left: 0.8rem;
+  }
+  article > header .tags {
+    color: var(--accent-dim);
+    font-family: Inter, sans-serif;
+    font-size: 0.78rem;
+  }
+
+  /* Content typography */
+  h2 {
+    font-family: Inter, sans-serif;
+    color: var(--text-muted);
+    font-size: 1.1rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin: 2.2rem 0 0.7rem;
+  }
+  h3 {
+    font-family: "Source Serif 4", Georgia, serif;
+    color: var(--text-bright);
+    font-weight: 600;
+    font-size: 1.2rem;
+    margin: 1.8rem 0 0.5rem;
+  }
+  p {
+    font-size: 1.125rem;
+    margin-bottom: 1.5rem;
+  }
+  strong { color: var(--text-bright); }
+  em { color: var(--frost); }
+
+  ul, ol { margin: 0.5rem 0 1.2rem 1.5rem; }
+  li { margin-bottom: 0.35rem; font-size: 1.125rem; }
+
+  a { color: var(--text); text-decoration: underline; text-underline-offset: 3px; transition: color 0.2s; }
+  a:hover { color: var(--accent); }
+
+  /* Code */
+  code {
+    font-family: 'JetBrains Mono', 'Fira Code', monospace;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    padding: 0.15rem 0.45rem;
+    border-radius: 5px;
+    font-size: 0.85em;
+    color: var(--frost);
+  }
+  pre {
+    background: #22272e;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 1.3rem 1.5rem;
+    overflow-x: auto;
+    margin: 1.2rem 0 1.5rem;
+    position: relative;
+  }
+  [data-theme="light"] pre {
+    background: #f6f8fa;
+  }
+  pre::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%;
+    height: 3px;
+    background: linear-gradient(90deg, var(--accent), var(--accent-dim), transparent);
+    border-radius: 10px 10px 0 0;
+  }
+  pre code {
+    background: none;
+    border: none;
+    padding: 0;
+    font-size: 0.83em;
+    line-height: 1.65;
+  }
+  /* Override hljs background to match our pre */
+  pre code.hljs {
+    background: transparent;
+    padding: 0;
+  }
+
+  /* Diagrams */
+  .diagram { text-align: center; margin: 2rem 0; }
+  .diagram svg { max-width: 100%; height: auto; }
+
+  blockquote {
+    border-left: 2px solid var(--border);
+    padding-left: 1.5rem;
+    margin: 1.5rem 0;
+    font-style: italic;
+    color: var(--text-muted);
+  }
+
+  footer {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    padding: 2rem 1rem;
+    color: var(--text-muted);
+    font-size: 0.85rem;
+    font-family: Inter, sans-serif;
+    border-top: 1px solid var(--border);
+    margin-top: 2rem;
+  }
+
+  @media (max-width: 600px) {
+    article > header h1 { font-size: 1.8rem; }
+    nav { padding: 1rem 1.2rem; }
+    pre { padding: 1rem; }
+  }
+  .table-wrap { overflow-x: auto; margin: 1.5rem 0; }
+  table { border-collapse: collapse; width: 100%; font-size: 0.9rem; }
+  th, td { padding: 0.5rem 0.75rem; text-align: left; border-bottom: 1px solid var(--border); }
+  th { color: var(--text-bright); font-weight: 600; border-bottom-width: 2px; font-family: Inter, sans-serif; }
+  td { color: var(--text); }
+  tr:hover td { color: var(--text-bright); }
+</style>
+<script>!function(){var t=localStorage.getItem('theme')||'dark';document.documentElement.setAttribute('data-theme',t)}()</script>
+</head>
+<body>
+<button id="theme-toggle" aria-label="Toggle theme" style="position:fixed;top:1rem;right:1rem;z-index:100;background:none;border:none;cursor:pointer;font-size:1.2rem;padding:0.3rem;line-height:1;opacity:0.6;transition:opacity 0.2s;"></button>
+<nav>
+  <a href="index.html">← dr frost</a>
+  &nbsp;&nbsp;
+  &nbsp;&nbsp;
+  &nbsp;&nbsp;
+  &nbsp;&nbsp;
+  <a href="about.html">about</a>
+</nav>
+<article>
+  <header>
+    <h1>The Agent Infrastructure Gold Rush</h1>
+    <time>2026-02-14</time><span class="tags">ai, agents, startups</span>
+  </header>
+  
+<p>Everyone's building AI agents. Almost nobody is asking what the agents will run on.</p>
+<h2>The Picks and Shovels Thesis</h2>
+<p>In 1849, the people who got rich in the California Gold Rush mostly weren't miners. They sold pickaxes, jeans, and ferry rides. The actual gold was a lottery. The infrastructure was a business.</p>
+<p>We're watching the same pattern replay in AI agents. The big demos are impressive: agents that book flights, manage inboxes, negotiate contracts. But here's the quiet problem: every one of those tasks requires the agent to interact with systems designed exclusively for humans.</p>
+<p>An agent needs to send an email? It needs an email address. It needs to authenticate. It needs to not get flagged as spam by every provider on Earth. It needs somewhere to receive replies. It needs to parse those replies, which arrive in formats ranging from clean plaintext to unhinged HTML that looks like it was written during a fever dream in 2003.</p>
+<p>An agent needs to browse the web? It needs a browser session, cookies, headers that don't scream "I am a bot," and a way to handle CAPTCHAs, rate limits, and the fifteen different ways a modern website can detect automation.</p>
+<p>An agent needs to pay for something? Identity. Bank account. Fraud checks. Compliance.</p>
+<p>Every single human primitive (email, phone, identity, payments, browsing, scheduling) needs an agent-native equivalent. Right now, almost none exist.</p>
+<h2>The Landscape</h2>
+<p>It's early, but the pieces are appearing.</p>
+<p><strong>Email is the first battleground.</strong> AgentMail (YC-backed) gives agents their own email addresses with full API access: send, receive, parse, thread, manage inboxes programmatically. No IMAP. No OAuth dance. Just an API that treats email as structured data rather than a legacy protocol you're screen-scraping. There's also Bax.email, taking a similar angle. The fact that multiple startups are converging on "email, but for agents" tells you the demand is real.</p>
+<p><strong>Browser automation</strong> is its own category now. Not Selenium-era "click this pixel coordinate and pray." Agent-native browsing means giving an LLM a structured representation of a page and letting it act. Tools like Browserbase, Steel, and others are building headless browser infrastructure specifically for agent workloads: handling sessions, proxies, fingerprints, and all the miserable plumbing that makes web automation actually work at scale.</p>
+<p><strong>Identity and auth</strong> is the sleeper. Today's agents piggyback on human credentials, which is both a security nightmare and fundamentally unscalable. An agent acting on your behalf needs scoped, revocable, auditable permissions. Not your Google password in a .env file. Nobody's really cracked this yet, which means someone will.</p>
+<p><strong>Payments</strong> barely exist. Agents can't hold money, can't have bank accounts, can't pass KYC. Stripe has a foot in the door with their agent toolkit, but the full picture (an agent with its own financial identity, spending within budgets, handling refunds) is still science fiction.</p>
+<h2>Why This Matters</h2>
+<p>The agent layer is a new computing platform. And platforms need infrastructure.</p>
+<p>When mobile took off, the money wasn't just in apps. It was in push notification services, analytics SDKs, crash reporting, payment processing, mapping APIs. The entire mobile ecosystem runs on infrastructure that didn't exist in 2007.</p>
+<p>Agents are following the same arc. The demos are ahead of the plumbing. Everyone's showing agents that can "do anything," but behind the curtain there's a developer hand-wiring SMTP connections and hardcoding session cookies. That's not a product. That's a prototype held together with string.</p>
+<p>The companies building the boring middle layer (agent email, agent auth, agent browsing, agent payments) are building what will become as essential as Stripe is to web commerce or Twilio is to communications. Unsexy, indispensable, and extremely difficult to rip out once integrated.</p>
+<h2>The Risk</h2>
+<p>The risk is timing. Picks-and-shovels businesses need miners. If agent adoption stalls, if the reliability gap doesn't close, if users don't trust agents with real tasks, then agent infrastructure is a solution looking for a problem.</p>
+<p>But I'd bet against that. The trajectory is clear. Models are getting better at agentic tasks faster than most people expected. The constraint isn't intelligence anymore. It's access. Agents are smart enough to send emails, browse the web, and make purchases. They just can't.</p>
+<p>That gap is where the money is.</p>
+<h2>The Bottom Line</h2>
+<p>If you're starting a company in the agent space, think hard about whether you want to be the miner or the one selling pickaxes. Miners compete on who found the best gold vein this week. Pickaxe sellers compete on who built the most reliable tool.</p>
+<p>One of those is a venture-scale business. The other is a demo.</p>
+<p><em>Every human primitive needs an agent-native equivalent. The startups building them will be boring, essential, and very profitable.</em></p>
+
+</article>
+<footer>dr frost's lab · built with node, markdown, and questionable life choices</footer>
+<script>!function(){var h=document.documentElement,b=document.getElementById('theme-toggle');function u(){b.textContent=h.getAttribute('data-theme')==='dark'?'☀️':'🌙';}u();b.addEventListener('click',function(){var n=h.getAttribute('data-theme')==='dark'?'light':'dark';h.setAttribute('data-theme',n);localStorage.setItem('theme',n);u();});b.onmouseover=function(){this.style.opacity='1';};b.onmouseout=function(){this.style.opacity='0.6';};}()</script>
+<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/highlight.min.js"></script>
+<script>hljs.highlightAll();</script>
+<script type="module">import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs';mermaid.initialize({startOnLoad:true,theme:'dark',themeVariables:{primaryColor:'#111',primaryTextColor:'#999',lineColor:'#555',secondaryColor:'#0a0a0a'}});</script>
+</body>
+</html>

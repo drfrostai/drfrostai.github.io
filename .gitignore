@@ -1,0 +1,31 @@
+# Personal/sensitive files - never commit these
+MEMORY.md
+SOUL.md
+*.env
+secret.*
+.secret*
+secrets/
+
+# Source code (keep local only, don't push to GitHub)
+posts/
+templates/
+garden/
+notes/
+build.js
+preflight.js
+package.json
+package-lock.json
+
+# Build artifacts (old output dirs)
+node_modules/
+dist/
+public/
+
+# Logs
+*.log
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Only docs/ should be committed to GitHub Pages
